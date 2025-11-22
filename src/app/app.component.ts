@@ -6,6 +6,7 @@ import { SoundService } from './services/sound.service';
 import { DayCardComponent } from './components/day-card/day-card.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { Day } from './interfaces/day.interface';
+import { inject as injectAnalytics } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
@@ -113,6 +114,9 @@ export class AppComponent {
   simulatedDateStr = signal(new Date().toISOString().split('T')[0]);
 
   constructor() {
+    // Initialize Vercel Analytics
+    injectAnalytics();
+
     // Effect to update service date when simulated date changes
     effect(() => {
       const dateStr = this.simulatedDateStr();
